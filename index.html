@@ -4,9 +4,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>beginner website</title>
+    <meta name="description" content="A clear-eyed look at how plastic production is growing, where plastic waste goes, and what we can do about it.">
+    <meta name="theme-color" content="#102e2a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Plastic, Every Day | The Plastic Signal</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #102e2a;
+            --paper: #f3f1e8;
+            --lime: #d7ed54;
+            --coral: #e86c4a;
+            --muted: #64726c;
+            --line: rgba(16, 46, 42, .2);
+            --display: "Space Grotesk", sans-serif;
+            --body: "DM Sans", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); }
+        a { color: inherit; }
+        button, input { font: inherit; }
+        .shell { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
+
+        .topbar { position: absolute; z-index: 2; inset: 0 0 auto; color: white; }
+        .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.3); }
+        .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 15px var(--display); letter-spacing: 0; }
+        .mark { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid var(--lime); border-radius: 50%; color: var(--lime); font-size: 15px; }
+        .nav-links { display: flex; gap: 34px; align-items: center; }
+        .nav-links a { text-decoration: none; font-size: 13px; font-weight: 600; }
+        .nav-links a:hover { color: var(--lime); }
+
+        .hero { min-height: 720px; height: min(840px, 100svh); position: relative; display: flex; align-items: end; overflow: hidden; color: white; background: #193a34 url("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=2200&q=85") center 54% / cover no-repeat; }
+        .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 29, 26, .85) 0%, rgba(8, 29, 26, .52) 48%, rgba(8, 29, 26, .08) 100%), linear-gradient(0deg, rgba(8, 29, 26, .53), transparent 44%); }
+        .hero-content { position: relative; padding: 170px 0 58px; width: min(780px, 100%); animation: arrive .8s ease-out both; }
+        .eyebrow { display: flex; align-items: center; gap: 11px; margin: 0 0 22px; color: var(--lime); text-transform: uppercase; font-size: 11px; font-weight: 700; letter-spacing: 1.6px; }
+        .eyebrow::before { content: ""; width: 30px; height: 2px; background: currentColor; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 760px; margin-bottom: 20px; font: 600 clamp(56px, 8vw, 106px)/.93 var(--display); letter-spacing: 0; }
+        h1 span { color: var(--lime); }
+        .hero-copy { max-width: 490px; margin: 0; color: rgba(255,255,255,.86); font-size: 17px; line-height: 1.65; }
+        .hero-bottom { position: relative; display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 28px 0 32px; border-top: 1px solid rgba(255,255,255,.38); margin-top: 70px; }
+        .hero-bottom p { margin: 0; color: rgba(255,255,255,.76); font-size: 12px; }
+        .scroll-link { color: var(--lime); text-decoration: none; font-size: 12px; font-weight: 700; }
+
+        .signal { background: var(--lime); padding: 32px 0 40px; }
+        .signal-head { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 26px; }
+        .signal-head p { margin: 0; font: 600 12px var(--display); text-transform: uppercase; letter-spacing: 1px; }
+        .signal-head span { font-size: 11px; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+        .stat { padding: 7px 30px 0 0; }
+        .stat + .stat { padding-left: 30px; border-left: 1px solid rgba(16,46,42,.35); }
+        .stat strong { display: block; font: 600 clamp(38px, 5vw, 62px)/1 var(--display); letter-spacing: 0; }
+        .stat p { max-width: 260px; margin: 10px 0 0; font-size: 13px; line-height: 1.5; }
+
+        .section { padding: 112px 0; }
+        .section-label { margin: 0 0 22px; color: var(--coral); text-transform: uppercase; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; }
+        .story-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 10%; align-items: start; }
+        h2 { margin-bottom: 24px; font: 600 clamp(38px, 5.2vw, 64px)/1.02 var(--display); letter-spacing: 0; }
+        .story-lede { max-width: 600px; margin: 0; color: #40534d; font-size: 18px; line-height: 1.7; }
+        .story-aside { padding-top: 46px; }
+        .story-aside p { margin: 0; font-size: 15px; line-height: 1.8; }
+        .story-aside p + p { margin-top: 18px; }
+        .pull-quote { margin-top: 36px; padding: 22px 0 0 22px; border-top: 1px solid var(--line); border-left: 3px solid var(--coral); font: 500 21px/1.35 var(--display); }
+
+        .calculator-band { background: var(--ink); color: var(--paper); padding: 92px 0; }
+        .calculator-layout { display: grid; grid-template-columns: 1fr .8fr; gap: 11%; align-items: center; }
+        .calculator-band .section-label { color: var(--lime); }
+        .calculator-band h2 { max-width: 530px; }
+        .calculator-band .intro { max-width: 460px; margin: 0; color: rgba(243,241,232,.72); font-size: 15px; line-height: 1.7; }
+        .calculator { border: 1px solid rgba(243,241,232,.32); padding: 26px; }
+        .calculator label { display: block; margin-bottom: 13px; font-size: 13px; font-weight: 600; }
+        .input-row { display: flex; align-items: center; gap: 12px; }
+        .input-row input { width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid rgba(243,241,232,.45); border-radius: 0; outline: none; background: transparent; color: white; font: 600 22px var(--display); }
+        .input-row input:focus { border-color: var(--lime); box-shadow: 0 0 0 2px var(--lime); }
+        .input-row span { flex: 0 0 auto; color: rgba(243,241,232,.7); font-size: 12px; }
+        .estimate { display: flex; align-items: baseline; gap: 10px; padding-top: 24px; margin-top: 24px; border-top: 1px solid rgba(243,241,232,.32); }
+        .estimate strong { color: var(--lime); font: 600 46px/1 var(--display); }
+        .estimate span { font-size: 13px; }
+        .calculator small { display: block; margin-top: 14px; color: rgba(243,241,232,.58); font-size: 11px; line-height: 1.6; }
+
+        .actions { padding: 100px 0; }
+        .actions-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 42px; }
+        .actions-head h2 { max-width: 530px; margin: 0; }
+        .actions-head p { max-width: 280px; margin: 0 0 4px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+        .action-list { border-top: 1px solid var(--line); }
+        .action { display: grid; grid-template-columns: 62px 1fr auto; gap: 20px; align-items: center; padding: 23px 0; border-bottom: 1px solid var(--line); }
+        .action-index { color: var(--coral); font: 600 15px var(--display); }
+        .action h3 { margin: 0 0 5px; font: 600 20px var(--display); }
+        .action p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+        .action-mark { color: var(--coral); font-size: 22px; }
+
+        footer { padding: 30px 0; background: #e5e4d8; }
+        .footer-row { display: flex; justify-content: space-between; gap: 30px; align-items: start; }
+        .footer-row p { max-width: 750px; margin: 0; color: #53625c; font-size: 11px; line-height: 1.7; }
+        .footer-row a { color: var(--ink); }
+        .footer-brand { flex: 0 0 auto; font: 700 12px var(--display); }
+        @keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; } }
+        @media (max-width: 720px) {
+            .shell { width: min(100% - 40px, 560px); }
+            .nav { min-height: 68px; }
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 11px; }
+            .nav-links a:first-child { display: none; }
+            .hero { min-height: 680px; height: 90svh; background-position: 57% center; }
+            .hero::before { background: linear-gradient(90deg, rgba(8,29,26,.76), rgba(8,29,26,.18)), linear-gradient(0deg, rgba(8,29,26,.7), transparent 75%); }
+            .hero-content { padding-bottom: 30px; }
+            .hero-bottom { margin-top: 48px; }
+            .signal { padding: 26px 0 30px; }
+            .signal-head { align-items: start; flex-direction: column; gap: 7px; }
+            .stats { grid-template-columns: 1fr; }
+            .stat, .stat + .stat { display: grid; grid-template-columns: 115px 1fr; gap: 12px; align-items: center; padding: 15px 0; border-left: 0; border-top: 1px solid rgba(16,46,42,.3); }
+            .stat strong { font-size: 40px; }
+            .stat p { margin: 0; }
+            .section, .actions { padding: 76px 0; }
+            .story-grid, .calculator-layout { grid-template-columns: 1fr; gap: 25px; }
+            .story-aside { padding-top: 0; }
+            .calculator-band { padding: 74px 0; }
+            .calculator { padding: 20px; }
+            .actions-head { align-items: start; flex-direction: column; margin-bottom: 30px; }
+            .action { grid-template-columns: 34px 1fr auto; gap: 12px; }
+            .action h3 { font-size: 18px; }
+            .footer-row { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
-    
+    <header class="topbar">
+        <nav class="nav shell" aria-label="Main navigation">
+            <a class="wordmark" href="#home"><span class="mark" aria-hidden="true">↗</span> THE PLASTIC SIGNAL</a>
+            <div class="nav-links">
+                <a href="#story">The picture</a>
+                <a href="#calculator">Your impact</a>
+                <a href="#actions">Take action</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="shell">
+                <div class="hero-content">
+                    <p class="eyebrow">A planet-sized problem</p>
+                    <h1 id="hero-title">Plastic.<br>More of it.<br><span>Every day.</span></h1>
+                    <p class="hero-copy">It is made in moments, used for minutes, and left in the environment for generations. Here is what is changing, and what we can change.</p>
+                    <div class="hero-bottom">
+                        <p>A clearer picture of the plastic crisis</p>
+                        <a class="scroll-link" href="#signal">Explore the facts ↓</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="signal" id="signal" aria-labelledby="signal-title">
+            <div class="shell">
+                <div class="signal-head">
+                    <p id="signal-title">The signal, in numbers</p>
+                    <span>Global estimates · OECD, 2019 data</span>
+                </div>
+                <div class="stats">
+                    <article class="stat"><strong>460M</strong><p>tonnes of plastic produced worldwide in 2019</p></article>
+                    <article class="stat"><strong>353M</strong><p>tonnes of plastic waste generated in the same year</p></article>
+                    <article class="stat"><strong>9%</strong><p>of plastic waste was ultimately recycled</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="story" aria-labelledby="story-title">
+            <div class="shell story-grid">
+                <div>
+                    <p class="section-label">01 / The picture</p>
+                    <h2 id="story-title">A material that outlives its moment.</h2>
+                    <p class="story-lede">Plastic production more than doubled between 2000 and 2019. Without stronger action, it could nearly triple by 2060.</p>
+                </div>
+                <div class="story-aside">
+                    <p>Plastic is woven into daily life, from food packaging to medical equipment. The problem is not simply that plastic exists: it is that so much is designed to be used briefly, while the waste persists and spreads.</p>
+                    <p>Most plastic is made from fossil fuels. As production rises, so do emissions and the pressure on waste systems that already struggle to keep up. Recycling helps, but it cannot keep pace with ever-growing production.</p>
+                    <div class="pull-quote">“The most effective waste is the waste we never create.”</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="calculator-band" id="calculator" aria-labelledby="calculator-title">
+            <div class="shell calculator-layout">
+                <div>
+                    <p class="section-label">02 / Make it tangible</p>
+                    <h2 id="calculator-title">Small choices add up.</h2>
+                    <p class="intro">Enter how many single-use plastic items you use on an average day. See what that pace adds up to over a year.</p>
+                </div>
+                <form class="calculator" onsubmit="return false">
+                    <label for="daily-use">Single-use items in a day</label>
+                    <div class="input-row">
+                        <input id="daily-use" name="daily-use" type="number" min="0" max="1000" value="3" inputmode="numeric" aria-describedby="estimate-note">
+                        <span>items / day</span>
+                    </div>
+                    <div class="estimate" aria-live="polite"><strong id="yearly-total">1,095</strong><span>items in one year</span></div>
+                    <small id="estimate-note">A simple estimate based on your input, not a full measure of your personal footprint.</small>
+                </form>
+            </div>
+        </section>
+
+        <section class="actions" id="actions" aria-labelledby="actions-title">
+            <div class="shell">
+                <div class="actions-head">
+                    <div><p class="section-label">03 / Turn awareness into action</p><h2 id="actions-title">Less plastic starts upstream.</h2></div>
+                    <p>Personal habits matter. So do the choices made by businesses and governments. Both can move the needle.</p>
+                </div>
+                <div class="action-list">
+                    <article class="action"><span class="action-index">01</span><div><h3>Choose reuse where it works</h3><p>Carry a refillable bottle or cup, and choose durable options when they are practical and accessible.</p></div><span class="action-mark" aria-hidden="true">↗</span></article>
+                    <article class="action"><span class="action-index">02</span><div><h3>Ask for better systems</h3><p>Support local refill, repair, and waste-reduction programs. Ask brands how they plan to reduce unnecessary packaging.</p></div><span class="action-mark" aria-hidden="true">↗</span></article>
+                    <article class="action"><span class="action-index">03</span><div><h3>Back policies that prevent waste</h3><p>Look for policies that reduce avoidable single-use products and make producers responsible for the waste they create.</p></div><span class="action-mark" aria-hidden="true">↗</span></article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="shell footer-row">
+            <p>Figures on this page refer to 2019 global data from the OECD, <a href="https://www.oecd.org/en/publications/global-plastics-outlook_de747aef-en.html" target="_blank" rel="noreferrer">Global Plastics Outlook (2022)</a>. The production projection is from the OECD's <a href="https://www.oecd.org/en/publications/global-plastics-outlook-policy-scenarios-to-2060_aa1edf33-en.html" target="_blank" rel="noreferrer">Policy Scenarios to 2060</a>. Estimates describe global trends and do not predict the future with certainty.</p>
+            <span class="footer-brand">THE PLASTIC SIGNAL · 2026</span>
+        </div>
+    </footer>
+
+    <script>
+        const dailyUse = document.querySelector("#daily-use");
+        const yearlyTotal = document.querySelector("#yearly-total");
+
+        dailyUse.addEventListener("input", () => {
+            const itemsPerDay = Number.parseInt(dailyUse.value, 10);
+            yearlyTotal.textContent = Number.isFinite(itemsPerDay)
+                ? (itemsPerDay * 365).toLocaleString()
+                : "0";
+        });
+    </script>
 </body>
 </html>
